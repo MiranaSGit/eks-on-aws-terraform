@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: app1-container
-          image: mirana/app1
+          image:  mirana/app1
           ports:
             - containerPort: 80
 ---
@@ -27,8 +27,6 @@ metadata:
   labels:
     app: app1
   annotations:
-#Important Note:  Need to add health check path annotations in service level if we are planning to use multiple targets in a load balancer    
-    alb.ingress.kubernetes.io/healthcheck-path: /app1/index.html
 spec:
   type: NodePort
   selector:

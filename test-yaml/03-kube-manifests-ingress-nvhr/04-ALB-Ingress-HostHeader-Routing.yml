@@ -2,12 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-namedbasedvhost-demo
+  name: ingress-namedbasedhost-demo
   annotations:
-    # Load Balancer Name
-    alb.ingress.kubernetes.io/load-balancer-name: namedbasedvhost-ingress
-    # Ingress Core Settings
-    #kubernetes.io/ingress.class: "alb" (OLD INGRESS CLASS NOTATION - STILL WORKS BUT RECOMMENDED TO USE IngressClass Resource)
+    alb.ingress.kubernetes.io/load-balancer-name: namedbasedhost-ingress
     alb.ingress.kubernetes.io/scheme: internet-facing
     # Health Check Settings
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
@@ -30,10 +27,10 @@ metadata:
     # External DNS - For creating a Record Set in Route53
     # external-dns.alpha.kubernetes.io/hostname: default101.stacksimplify.com 
 spec:
-  # ingressClassName: my-aws-ingress-class   # Ingress Class                  
+  # ingressClassName: eksdemo-aws-ingress-class # If default Ingress Class not set, then provide Ingress Class name                  
   defaultBackend:
     service:
-      name: app3-nginx-nodeport-service
+      name: app3-nodeport-service
       port:
         number: 80     
   rules:
@@ -44,7 +41,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app1-nginx-nodeport-service
+                name: app1-nodeport-service
                 port: 
                   number: 80
     - host: app2.demirozu.click
@@ -54,7 +51,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app2-nginx-nodeport-service
+                name: app2-nodeport-service
                 port: 
                   number: 80
 

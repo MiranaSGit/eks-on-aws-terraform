@@ -2,14 +2,11 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-mirana
+  name: ingress-basic
   labels:
-    app: app3-nginx
+    app: app1-nginx
   annotations:
-    # Load Balancer Name
-    alb.ingress.kubernetes.io/load-balancer-name: ingress-mirana
-    #kubernetes.io/ingress.class: "alb" (OLD INGRESS CLASS NOTATION - STILL WORKS BUT RECOMMENDED TO USE IngressClass Resource) # Additional Notes: https://kubernetes-sigs.github.io/aws-load-balancer-controller/v2.3/guide/ingress/ingress_class/#deprecated-kubernetesioingressclass-annotation
-    # Ingress Core Settings
+    alb.ingress.kubernetes.io/load-balancer-name: ingress-basic
     alb.ingress.kubernetes.io/scheme: internet-facing
     # Health Check Settings
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
@@ -24,13 +21,9 @@ metadata:
     # then provide subnet ids (public subnets not private !!!) manually
     alb.ingress.kubernetes.io/subnets: subnet-081431b3b8e8e7ef5, subnet-06639ba85567ca1f7
 spec:
-  # ingressClassName: my-aws-ingress-class # Ingress Class
+  # ingressClassName: eksdemo-aws-ingress-class # If default Ingress Class not set, then provide Ingress Class name
   defaultBackend:
     service:
-      name: app3-nginx-nodeport-service
+      name: app1-nodeport-service
       port:
-        number: 80                  
-      
-
-# 1. If  "spec.ingressClassName: my-aws-ingress-class" not specified, will reference default ingress class on this kubernetes cluster
-# 2. Default Ingress class is nothing but for which ingress class we have the annotation `ingressclass.kubernetes.io/is-default-class: "true"`
+        number: 80

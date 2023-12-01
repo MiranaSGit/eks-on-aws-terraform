@@ -4,12 +4,8 @@ kind: Ingress
 metadata:
   name: ingress-ssl-demo
   annotations:
-    # Load Balancer Name
     alb.ingress.kubernetes.io/load-balancer-name: ingress-ssl-demo
-    # Ingress Core Settings
-    #kubernetes.io/ingress.class: "alb" (OLD INGRESS CLASS NOTATION - STILL WORKS BUT RECOMMENDED TO USE IngressClass Resource)
     alb.ingress.kubernetes.io/scheme: internet-facing
-    # Health Check Settings
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
     alb.ingress.kubernetes.io/healthcheck-port: traffic-port
     #Important Note:  Need to add health check path annotations in service level if we are planning to use multiple targets in a load balancer    
@@ -28,33 +24,28 @@ metadata:
     # then provide subnet ids (public subnets not private !!!) manually
     alb.ingress.kubernetes.io/subnets: subnet-081431b3b8e8e7ef5, subnet-06639ba85567ca1f7
 spec:
-  # ingressClassName: my-aws-ingress-class   # Ingress Class                  
+  # ingressClassName: eksdemo-aws-ingress-class # If default Ingress Class not set, then provide Ingress Class name                  
   defaultBackend:
     service:
-      name: app3-nginx-nodeport-service
+      name: app1-nodeport-service
       port:
         number: 80     
   rules:
     - http:
         paths:      
-          - path: /app1
-            pathType: Prefix
-            backend:
-              service:
-                name: app1-nginx-nodeport-service
-                port: 
-                  number: 80
           - path: /app2
             pathType: Prefix
             backend:
               service:
-                name: app2-nginx-nodeport-service
+                name: app2-nodeport-service
                 port: 
                   number: 80
-
-# Important Note-1: In path based routing order is very important, if we are going to use  "/*", try to use it at the end of all rules.                                        
-                        
-# 1. If  "spec.ingressClassName: my-aws-ingress-class" not specified, will reference default ingress class on this kubernetes cluster
-# 2. Default Ingress class is nothing but for which ingress class we have the annotation `ingressclass.kubernetes.io/is-default-class: "true"`
+          - path: /app3
+            pathType: Prefix
+            backend:
+              service:
+                name: app3-nodeport-service
+                port: 
+                  number: 80
       
     
