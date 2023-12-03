@@ -1,0 +1,43 @@
+# Annotations Reference: https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/ingress/annotations/
+#apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app1-ingress
+  annotations:
+    alb.ingress.kubernetes.io/load-balancer-name: ingress-groups-demo
+    alb.ingress.kubernetes.io/scheme: internet-facing    
+    # Health Check Settings
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    #Important Note:  Need to add health check path annotations in service level if we are planning to use multiple targets in a load balancer    
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '15'
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+    alb.ingress.kubernetes.io/success-codes: '200'
+    alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
+    ## SSL Settings
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
+    #alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:178628758487:certificate/df1a7880-96ee-4ff3-b561-b70f809ec627
+    #alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-1-2017-01 #Optional (Picks default if not used)    
+    # SSL Redirect Setting
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    # If getting: "Failed build model due to couldn't auto-discover subnets: unable to resolve at least one subnet (2 match VPC and tags, 2 tagged for other cluster)"
+    # then provide subnet ids (public subnets not private !!!) manually
+    alb.ingress.kubernetes.io/subnets: subnet-081431b3b8e8e7ef5, subnet-06639ba85567ca1f7
+    # Ingress Groups
+    alb.ingress.kubernetes.io/group.name: myapps.web
+    alb.ingress.kubernetes.io/group.order: '30'
+spec:
+  # ingressClassName: eksdemo-aws-ingress-class # If default Ingress Class not set, then provide Ingress Class name
+  # SSL Certificate Discovery using TLS        
+  tls:
+  - hosts:
+    - "*.demirozu.click"
+  defaultBackend:
+    service:
+      name: app1-nginx-service
+      port:
+        number: 80   
+
+
