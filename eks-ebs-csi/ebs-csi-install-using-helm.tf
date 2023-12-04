@@ -9,7 +9,7 @@ resource "helm_release" "ebs_csi_driver" {
 
   set {
     name = "image.repository"
-    value = "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver" # Changes based on Region - This is for us-east-1 Additional Reference: https://docs.aws.amazon.com/eks/latest/userguide/add-ons-images.html
+    value = "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver"
   }       
 
   set {

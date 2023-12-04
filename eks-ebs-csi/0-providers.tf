@@ -36,8 +36,8 @@ terraform {
 
 # Terraform AWS Provider Block
 provider "aws" {
-    region = "us-east-1"
-    profile = "omer"
+    region = var.aws_region
+    profile = var.aws_profile
 }
 
 # Terraform HTTP Provider Block
