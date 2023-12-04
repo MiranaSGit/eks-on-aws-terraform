@@ -1,0 +1,56 @@
+# Annotations Reference: https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/ingress/annotations/
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-target-type-ip-demo
+  annotations:
+    alb.ingress.kubernetes.io/load-balancer-name: target-type-ip-ingress
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    #Important Note:  Need to add health check path annotations in service level if we are planning to use multiple targets in a load balancer    
+    #alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '15'
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+    alb.ingress.kubernetes.io/success-codes: '200'
+    alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
+    # If getting: "Failed build model due to couldn't auto-discover subnets: unable to resolve at least one subnet (2 match VPC and tags, 2 tagged for other cluster)"
+    # then provide subnet ids (public subnets not private !!!) manually
+    alb.ingress.kubernetes.io/subnets: subnet-080d8a025b033a601, subnet-09d8f07844307a0fe   
+    ## SSL Settings
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
+    #alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:180789647333:certificate/0d86500a-08b3-4f17-8fb4-f09532ba0522
+    #alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-1-2017-01 #Optional (Picks default if not used)    
+    # SSL Redirect Setting
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  # ingressClassName: eksdemo-aws-ingress-class # If default Ingress Class not set, then provide Ingress Class name                  
+  defaultBackend:
+    service:
+      name: app1-nodeport-service
+      port:
+        number: 80     
+  tls:
+  - hosts:
+    - "*.demirozu.click"
+  # rules:
+  #   - http:
+  #       paths:
+  #         - path: /app2
+  #           pathType: Prefix
+  #           backend:
+  #             service:
+  #               name: app2-clusterip-service
+  #               port: 
+  #                 number: 80
+  #   - http:
+  #       paths:                  
+  #         - path: /app3
+  #           pathType: Prefix
+  #           backend:
+  #             service:
+  #               name: app3-clusterip-service
+  #               port: 
+  #                 number: 80

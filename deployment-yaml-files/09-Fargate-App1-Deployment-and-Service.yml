@@ -1,21 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app1
+  name: app1-fargate
   labels:
-    app: app1
+    app: app1-fargate
+  namespace: fp-ns-app1    
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app1
+      app: app1-fargate
   template:
     metadata:
       labels:
-        app: app1
+        app: app1-fargate
     spec:
       containers:
-        - name: app1-container
+        - name: app1-fargate-container
           image: mirana/app1
           ports:
             - containerPort: 80
@@ -23,16 +24,17 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: app1-nodeport-service
+  name: app1-fargate-service
   labels:
-    app: app1
+    app: app1-fargate
+  namespace: fp-ns-app1    
   annotations:
 #Important Note:  Need to add health check path annotations in service level if we are planning to use multiple targets in a load balancer    
-    alb.ingress.kubernetes.io/healthcheck-path: /app1/index.html
+    alb.ingress.kubernetes.io/healthcheck-path: /index.html
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
-    app: app1
+    app: app1-fargate
   ports:
     - port: 80
       targetPort: 80
