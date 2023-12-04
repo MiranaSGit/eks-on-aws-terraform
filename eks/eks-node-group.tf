@@ -13,6 +13,7 @@ resource "aws_eks_node_group" "eks_ng_private" {
   capacity_type = "SPOT"  # or ON_DEMAND
   disk_size = 20
   instance_types = ["t3.medium"]
+  # instance_types = ["t3.large"]
   
   
   remote_access {
@@ -22,7 +23,7 @@ resource "aws_eks_node_group" "eks_ng_private" {
   scaling_config {
     desired_size = 1
     min_size     = 1    
-    max_size     = 2
+    max_size     = 3
   }
 
   # launch_template {

@@ -12,7 +12,7 @@ resource "helm_release" "efs_csi_driver" {
 
   set {
     name = "image.repository"
-    value = "public.ecr.aws/eks/aws-efs-csi-driver"
+    value = "amazon/aws-efs-csi-driver"
   }       
 
   set {
