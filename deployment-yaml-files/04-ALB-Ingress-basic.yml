@@ -19,7 +19,7 @@ metadata:
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
     # If getting: "Failed build model due to couldn't auto-discover subnets: unable to resolve at least one subnet (2 match VPC and tags, 2 tagged for other cluster)"
     # then provide subnet ids (public subnets not private !!!) manually
-    alb.ingress.kubernetes.io/subnets: subnet-081431b3b8e8e7ef5, subnet-06639ba85567ca1f7
+    # alb.ingress.kubernetes.io/subnets: subnet-081431b3b8e8e7ef5, subnet-06639ba85567ca1f7
 spec:
   # ingressClassName: eksdemo-aws-ingress-class # If default Ingress Class not set, then provide Ingress Class name
   defaultBackend:

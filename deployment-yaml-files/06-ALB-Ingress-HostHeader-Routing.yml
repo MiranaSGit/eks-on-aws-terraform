@@ -23,7 +23,7 @@ metadata:
     alb.ingress.kubernetes.io/ssl-redirect: '443'
     # If getting: "Failed build model due to couldn't auto-discover subnets: unable to resolve at least one subnet (2 match VPC and tags, 2 tagged for other cluster)"
     # then provide subnet ids (public subnets not private !!!) manually
-    alb.ingress.kubernetes.io/subnets: subnet-081431b3b8e8e7ef5, subnet-06639ba85567ca1f7
+    # alb.ingress.kubernetes.io/subnets: subnet-081431b3b8e8e7ef5, subnet-06639ba85567ca1f7
     # External DNS - For creating a Record Set in Route53
     # external-dns.alpha.kubernetes.io/hostname: default101.stacksimplify.com 
 spec:
@@ -54,10 +54,5 @@ spec:
                 name: app2-nodeport-service
                 port: 
                   number: 80
-
-# Important Note-1: In path based routing order is very important, if we are going to use  "/*", try to use it at the end of all rules.                                        
-                        
-# 1. If  "spec.ingressClassName: my-aws-ingress-class" not specified, will reference default ingress class on this kubernetes cluster
-# 2. Default Ingress class is nothing but for which ingress class we have the annotation `ingressclass.kubernetes.io/is-default-class: "true"`
       
     
