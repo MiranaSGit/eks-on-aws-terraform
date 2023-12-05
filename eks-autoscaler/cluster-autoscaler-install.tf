@@ -3,7 +3,8 @@
 # Resource: Helm Release 
 resource "helm_release" "cluster_autoscaler_release" {
   depends_on = [aws_iam_role.cluster_autoscaler_iam_role ]            
-  name       = "${local.name}-ca"
+  # name       = "${local.name}-ca"
+  name       = ""
 
   repository = "https://kubernetes.github.io/autoscaler"
   chart      = "cluster-autoscaler"
