@@ -2,7 +2,7 @@ data "terraform_remote_state" "eks" {
   backend = "local"
   config = {
     path = "../eks/terraform.tfstate"
-   }
+  }
 }
 
 # Terraform Remote State Datasource - Remote Backend AWS S3

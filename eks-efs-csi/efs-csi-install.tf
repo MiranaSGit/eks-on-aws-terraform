@@ -2,18 +2,18 @@
 
 # Resource: Helm Release 
 resource "helm_release" "efs_csi_driver" {
-  depends_on = [aws_iam_role.efs_csi_iam_role ]            
+  depends_on = [aws_iam_role.efs_csi_iam_role]
   name       = "aws-efs-csi-driver"
 
   repository = "https://kubernetes-sigs.github.io/aws-efs-csi-driver"
   chart      = "aws-efs-csi-driver"
 
-  namespace = "kube-system"     
+  namespace = "kube-system"
 
   set {
-    name = "image.repository"
+    name  = "image.repository"
     value = "amazon/aws-efs-csi-driver"
-  }       
+  }
 
   set {
     name  = "controller.serviceAccount.create"
@@ -27,9 +27,9 @@ resource "helm_release" "efs_csi_driver" {
 
   set {
     name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = "${aws_iam_role.efs_csi_iam_role.arn}"
+    value = aws_iam_role.efs_csi_iam_role.arn
   }
-    
+
 }
 
 

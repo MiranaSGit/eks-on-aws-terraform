@@ -6,7 +6,7 @@ terraform {
       source = "hashicorp/aws"
       #version = "~> 4.12"
       version = ">= 4.65"
-     }
+    }
     helm = {
       source = "hashicorp/helm"
       #version = "2.5.1"
@@ -20,9 +20,9 @@ terraform {
       version = "~> 3.3"
     }
     kubernetes = {
-      source = "hashicorp/kubernetes"
+      source  = "hashicorp/kubernetes"
       version = "~> 2.20"
-    }      
+    }
   }
   # Adding Backend as S3 for Remote State Storage
   # backend "s3" {
@@ -30,7 +30,7 @@ terraform {
   #   key    = "eks-alb-terraform.tfstate"
   #   region = "us-east-1"
   #   profile = "omer" 
- 
+
   #   # For State Locking
   #   dynamodb_table = "eks-alb-state"   
   # }     
@@ -38,7 +38,7 @@ terraform {
 
 # Terraform AWS Provider Block
 provider "aws" {
-  region = var.aws_region
+  region  = var.aws_region
   profile = var.aws_profile
 }
 

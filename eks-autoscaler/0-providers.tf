@@ -6,7 +6,7 @@ terraform {
       source = "hashicorp/aws"
       #version = "~> 4.14"
       version = ">= 4.65"
-     }
+    }
     helm = {
       source = "hashicorp/helm"
       #version = "2.5.1"
@@ -23,7 +23,7 @@ terraform {
       source = "hashicorp/kubernetes"
       #version = "~> 2.11"
       version = ">= 2.20"
-    }      
+    }
   }
   # Adding Backend as S3 for Remote State Storage
   # backend "s3" {
@@ -38,7 +38,7 @@ terraform {
 
 # Terraform AWS Provider Block
 provider "aws" {
-  region = var.aws_region
+  region  = var.aws_region
   profile = var.aws_profile
 }
 

@@ -5,8 +5,8 @@ terraform {
     aws = {
       source = "hashicorp/aws"
       #version = ">= 3.63"
-      version = ">= 4.65"      
-     }
+      version = ">= 4.65"
+    }
   }
 
   # Adding Backend as S3 for Remote State Storage
@@ -15,7 +15,7 @@ terraform {
   #   key    = "vpc-eks.terraform.tfstate"
   #   region = "us-east-1"
   #   profile = "omer" 
- 
+
   #   # For State Locking
   #   dynamodb_table = "vpc-eks-table"    
   # }
@@ -24,11 +24,11 @@ terraform {
   # backend "local" {
   #   path = "vpc-eks-terraform.tfstate"
   # }   
-}  
+}
 
 
 # Terraform AWS Provider Block
 provider "aws" {
-    region = "us-east-1"
-    profile = "omer"
+  region  = "us-east-1"
+  profile = "omer"
 }

@@ -2,7 +2,7 @@ data "terraform_remote_state" "vpc" {
   backend = "local"
   config = {
     path = "../vpc/terraform.tfstate"
-   }
+  }
 }
 
 # Terraform Remote State Datasource - Remote Backend AWS S3

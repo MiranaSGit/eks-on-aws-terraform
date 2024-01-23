@@ -5,12 +5,12 @@ resource "helm_release" "ebs_csi_driver" {
   name       = "${local.name}-aws-ebs-csi-driver"
   repository = "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
   chart      = "aws-ebs-csi-driver"
-  namespace = "kube-system"     
+  namespace  = "kube-system"
 
   set {
-    name = "image.repository"
+    name  = "image.repository"
     value = "public.ecr.aws/ebs-csi-driver/aws-ebs-csi-driver"
-  }       
+  }
 
   set {
     name  = "controller.serviceAccount.create"
@@ -24,9 +24,9 @@ resource "helm_release" "ebs_csi_driver" {
 
   set {
     name  = "controller.serviceAccount.annotations.eks\\.amazonaws\\.com/role-arn"
-    value = "${aws_iam_role.ebs_csi_iam_role.arn}"
+    value = aws_iam_role.ebs_csi_iam_role.arn
   }
-    
+
 }
 
 

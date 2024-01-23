@@ -5,8 +5,8 @@ terraform {
     aws = {
       source = "hashicorp/aws"
       #version = ">= 3.63"
-      version = ">= 4.65"      
-     }
+      version = ">= 4.65"
+    }
     helm = {
       source = "hashicorp/helm"
       #version = "2.4.1"
@@ -27,17 +27,17 @@ terraform {
   #   key    = "ebs-terraform.tfstate"
   #   region = "us-east-1"
   #   profile = "omer" 
- 
+
   #   # For State Locking
   #   dynamodb_table = "ebs-state"    
   # }   
-}  
+}
 
 
 # Terraform AWS Provider Block
 provider "aws" {
-    region = var.aws_region
-    profile = var.aws_profile
+  region  = var.aws_region
+  profile = var.aws_profile
 }
 
 # Terraform HTTP Provider Block
