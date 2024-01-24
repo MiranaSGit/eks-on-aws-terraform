@@ -45,5 +45,3 @@ resource "helm_release" "loadbalancer_controller" {
     value = aws_eks_cluster.eks_cluster.id
   }
 }
-
-

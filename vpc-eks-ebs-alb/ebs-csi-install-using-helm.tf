@@ -28,5 +28,3 @@ resource "helm_release" "ebs_csi_driver" {
   }
 
 }
-
-
