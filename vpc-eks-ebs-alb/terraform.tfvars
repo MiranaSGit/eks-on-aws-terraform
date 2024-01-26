@@ -1,5 +1,6 @@
 # Generic Variables
 aws_region  = "eu-central-1"
+aws_profile = "pia-omer"
 environment = "test"
 project     = "mirana"
 
@@ -12,6 +13,7 @@ vpc_private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
 # vpc_create_database_subnet_route_table = true   
 vpc_enable_nat_gateway = true
 vpc_single_nat_gateway = true
+keypair                = "pia"
 
 # EKS Cluster Variables
 cluster_name                         = "eks"

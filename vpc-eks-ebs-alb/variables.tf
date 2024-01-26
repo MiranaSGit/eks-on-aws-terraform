@@ -73,6 +73,13 @@ variable "vpc_single_nat_gateway" {
   default     = true
 }
 
+# VPC EC2 KeyPair
+variable "keypair" {
+  description = "EC2 Keypair name to be used to connect to the nodes in eks cluster"
+  type        = string
+  default     = null
+}
+
 # EKS Cluster Input Variables
 variable "cluster_name" {
   description = "Name of the EKS cluster. Also used as a prefix in names of related resources."
