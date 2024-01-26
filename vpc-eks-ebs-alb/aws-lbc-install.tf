@@ -2,7 +2,7 @@
 
 # Resource: Helm Release 
 resource "helm_release" "loadbalancer_controller" {
-  depends_on = [aws_iam_role.lbc_iam_role, aws_eks_node_group.eks_ng_private]
+  depends_on = [aws_iam_role.lbc_iam_role, aws_eks_node_group.eks_ng_public]
   name       = "aws-load-balancer-controller"
 
   repository = "https://aws.github.io/eks-charts"
