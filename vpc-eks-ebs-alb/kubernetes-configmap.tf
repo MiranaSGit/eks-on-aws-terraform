@@ -15,10 +15,12 @@ locals {
       username = "system:node:{{EC2PrivateDNSName}}"
       groups   = ["system:bootstrappers", "system:nodes"]
     },
+  ]
+  configmap_users = [
     {
-      rolearn  = "${aws_iam_role.eks_admin_role.arn}"
-      username = "eks-admin" # Just a place holder name
-      groups   = ["system:masters"]
+      userarn = "${aws_iam_user.eksadmin_user.arn}"
+      username = "${aws_iam_user.eksadmin_user.name}"
+      groups = ["system:masters"]
     },
   ]
 }
@@ -31,5 +33,6 @@ resource "kubernetes_config_map_v1" "aws_auth" {
   }
   data = {
     mapRoles = yamlencode(local.configmap_roles)
+    mapUsers = yamlencode(local.configmap_users)
   }
 }
